@@ -3,5 +3,5 @@
     <string name="log_ind">Log Ind</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
-    <string name="new_user_register_here">New User? Register Here</string>
+    <string name="new_user_register_here">Ny Bruger? Opret Dig Her</string>
 </resources>

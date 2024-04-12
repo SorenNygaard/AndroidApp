@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Projekt"
         tools:targetApi="31">
         <activity
+            android:name=".Forside"
+            android:exported="false" />
+        <activity
             android:name=".UserActivity"
             android:exported="false" />
         <activity

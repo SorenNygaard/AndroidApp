@@ -6,30 +6,51 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextTitle"
+        android:id="@+id/editTextTitel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Book Title"
+        android:hint="Bogtitel"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/editTextAuthor"
+        android:id="@+id/editTextForfatter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Author"
+        android:hint="Forfatter"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/editTextPrice"
+        android:id="@+id/editTextPris"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
+        android:hint="Pris"
         android:inputType="numberDecimal"/>
 
+    <EditText
+        android:id="@+id/editTextUddannelse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Uddannelse"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/editTextSemester"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Semester"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/editTextStand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Bogens stand"
+        android:inputType="text"/>
+
     <Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnIndsend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="Indsend"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

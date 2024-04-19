@@ -43,5 +43,10 @@
             android:name=".Forside"
             android:exported="true"/> <!-- Update this based on whether it needs to be accessed directly via intents -->
 
+        <activity
+            android:name=".UserSettingsActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 </manifest>

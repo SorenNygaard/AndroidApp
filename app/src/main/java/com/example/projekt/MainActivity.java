@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         searchbar = findViewById(R.id.searchBar);
 
 
-
         Button buttonLogout = findViewById(R.id.logud);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override

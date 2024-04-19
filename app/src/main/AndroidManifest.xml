@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,10 +25,6 @@
             </intent-filter>
         </activity>
 
-        <!-- UserActivity for logged-in users -->
-        <activity
-            android:name=".UserActivity"
-            android:exported="true" /> <!-- Consider setting exported based on whether it's accessed externally -->
 
         <!-- SellBookActivity for posting new book sales -->
         <activity
@@ -38,9 +36,10 @@
             android:name=".SigninActivity"
             android:exported="true"/> <!-- Set exported as needed -->
 
-        <!-- Forside activity -->
+        <!-- UserActivity for logged-in users -->
+
         <activity
-            android:name=".Forside"
+            android:name=".MainActivity"
             android:exported="true"/> <!-- Update this based on whether it needs to be accessed directly via intents -->
 
     </application>

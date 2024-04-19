@@ -1,7 +1,31 @@
 <resources>
-    <string name="app_name">Projekt</string>
-    <string name="log_ind">Log Ind</string>
-    <string name="password">Password</string>
+
+
     <string name="email">Email</string>
-    <string name="new_user_register_here">Ny Bruger? Opret Dig Her</string>
+    <string name="password">Password</string>
+    <string name="BtnLogIn">Log ind</string>
+    <string name="new_user_register_here">Ny bruger? Opret dig her</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_sign_in_here">Allerede bruger? Log ind her</string>
+    <string name="bogens_stand">Stand</string>
+    <string name="indsend">Tilføj bog</string>
+    <string name="search">Search</string>
+    <string name="log_ud">LogUd</string>
+    <string name="Sell_book">Tilføj en bog</string>
+
+    <!-- recycleview.book_item. -->
+    <string name="titleRV">Titel</string>
+    <string name="forfatterRV">Forfatter</string>
+    <string name="uddannelseRV">Uddannelse</string>
+    <string name="semesterRV">Semester</string>
+    <string name="standRV">Stand</string>
+    <string name="prisRV">Pris</string>
+
+    <string name="app_name">Projekt</string>
+
+    <string name="bogtitel">Bogens titel</string>
+    <string name="forfatter">Forfatter</string>
+    <string name="pris">Pris</string>
+    <string name="uddannelse">Uddannelse</string>
+    <string name="semester">Semester</string>
 </resources>

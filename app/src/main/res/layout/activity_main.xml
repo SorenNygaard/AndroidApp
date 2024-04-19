@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F0F0F0"
+    android:backgroundTint="@color/white"
+    tools:context=".MainActivity"
+    app:backgroundTint="@null">
+
+    <!-- TextView -->
+    <TextView
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/infotexther"/>
+
+    <!-- Search Bar -->
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infotexther"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/textfields"
+        android:hint="@string/search"
+        android:padding="12dp" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/searchBar"
+        tools:listitem="@layout/book_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_above="@id/navigation_buttons" />
+
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:id="@+id/navigation_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+
+        >
+
+        <android.widget.Button
+            android:id="@+id/logud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background ="@drawable/button_navigation"
+            android:text="@string/log_ud"
+            />
+
+        <android.widget.Button
+            android:id="@+id/menu2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background ="@drawable/button_navigation"
+            android:text="@string/Sell_book"
+            />
+
+        <android.widget.Button
+            android:id="@+id/menu3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/menu4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -6,4 +6,5 @@
     <color name="blue">#2697FF</color>
     <color name="orange">#D06D26</color>
     <color name="HintGray">#808080</color>
+    <color name="lightgray">#F4F4F4</color>
 </resources>

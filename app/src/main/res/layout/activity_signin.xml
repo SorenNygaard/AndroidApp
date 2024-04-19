@@ -47,9 +47,10 @@
                 android:drawablePadding="12dp"
                 android:padding="12dp"
                 android:hint="Email"
+                android:textColorHint="@color/HintGray"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:drawableTint="#808080"/>
+                android:drawableTint="@color/HintGray"/>
 
             <EditText
                 android:id="@+id/Password"
@@ -61,6 +62,7 @@
                 android:drawablePadding="12dp"
                 android:padding="12dp"
                 android:hint="Password"
+                android:textColorHint="@color/HintGray"
                 android:inputType="textPassword"
                 android:textColor="#333333"
                 android:drawableTint="#808080"/>

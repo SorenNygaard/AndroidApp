@@ -48,7 +48,7 @@
                 android:padding="12dp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:textColor="#333333"
+                android:textColor="@color/black"
                 android:drawableTint="#808080"/>
 
             <EditText
@@ -65,14 +65,14 @@
                 android:textColor="#333333"
                 android:drawableTint="#808080"/>
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/sign_up"
                 android:textSize="18sp"
-                android:backgroundTint="#4CAF50"
+                android:background="@drawable/buttonsfullwidth"
                 android:textColor="#FFFFFF" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:text="@string/already_have_an_account_sign_in_here"
                 android:textSize="16sp"
                 android:textAlignment="center"
-                android:textColor="#1976D2" />
+                android:textColor="@color/orange" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

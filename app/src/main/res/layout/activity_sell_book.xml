@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SellBookActivity"
-    app:backgroundTint="@null">
+    android:background="#FFFFFF"
+    app:backgroundTint="@null"
+    tools:context=".SellBookActivity">
 
 
     <ImageButton
@@ -19,11 +20,11 @@
         android:src="@drawable/backbutton" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:layout_below="@+id/backButton">
+        android:layout_below="@+id/backButton"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <EditText
             android:id="@+id/editTextTitel"
@@ -31,6 +32,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/bogtitel"
             android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             />
 
         <EditText
@@ -38,43 +41,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/forfatter"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
 
         <EditText
             android:id="@+id/editTextPris"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/pris"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
 
         <EditText
             android:id="@+id/editTextUddannelse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/uddannelse"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
 
         <EditText
             android:id="@+id/editTextSemester"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/semester"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
 
         <EditText
             android:id="@+id/editTextStand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/bogens_stand"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
 
         <Button
             android:id="@+id/btnIndsend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/indsend"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/buttonsfullwidth"
-            android:layout_gravity="center_horizontal"/>
+            android:backgroundTint="@color/blue"
+            android:text="@string/indsend"
+            android:textColorHint="@color/black" />
     </LinearLayout>
 
 </RelativeLayout>

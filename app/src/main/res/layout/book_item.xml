@@ -1,61 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:contentPadding="18dp"
+    app:contentPadding="10dp"
     app:cardUseCompatPadding="true"
     app:cardBackgroundColor="@color/white"
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.widget.ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageBook"
+                android:padding="10dp"
+                android:src="@mipmap/my_image_foreground"
+                />
+
+            <TextView
             android:id="@+id/itemtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
             android:text="@string/titleRV"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"/>
         <TextView
             android:id="@+id/itemforfatter"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/forfatterRV"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"
+            android:layout_below="@+id/itemtitle"/>
         <TextView
             android:id="@+id/itemuddannelse"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/uddannelseRV"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"
+            android:layout_below="@+id/itemforfatter"/>
         <TextView
             android:id="@+id/itemsemester"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/semesterRV"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"
+            android:layout_below="@+id/itemuddannelse"/>
         <TextView
             android:id="@+id/itemstand"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/standRV"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"
+            android:layout_below="@+id/itemsemester"/>
         <TextView
             android:id="@+id/itempris"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/prisRV"
-            android:textColor="@color/black" />
-
+            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/imageBook"
+            android:layout_below="@+id/itemstand"/>
+    </RelativeLayout>
 
     </LinearLayout>
 

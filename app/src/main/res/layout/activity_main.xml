@@ -4,29 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F0F0F0"
-    android:backgroundTint="@color/white"
+    android:background="@color/white"
     tools:context=".MainActivity"
     app:backgroundTint="@null">
 
     <!-- TextView -->
     <TextView
-        android:layout_alignParentTop="true"
-        android:gravity="center_horizontal"
+        android:id="@+id/velkomstText"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/infotexther"/>
+        android:text="Velkommen til AAU Martketplace"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="21sp"
+        />
+
+    <TextView
+        android:id="@+id/underVelkomst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="- Køb og salg af studiebøger"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        android:layout_below="@id/velkomstText"
+        />
 
     <!-- Search Bar -->
-    <EditText
+    <SearchView
         android:id="@+id/searchBar"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/infotexther"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/textfields"
+        android:layout_below="@id/underVelkomst"
+        android:drawableStart="@drawable/custom_input_background"
         android:hint="@string/search"
-        android:padding="12dp" />
+        android:textColorHint="@color/HintGray"
+        />
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +64,6 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-
         >
 
         <android.widget.Button

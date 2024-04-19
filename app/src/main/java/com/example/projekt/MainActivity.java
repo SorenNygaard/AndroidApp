@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    TextView textview;
+    SearchView searchbar;
     FirebaseUser user;
     RecyclerView recyclerView;
     ArrayList<ModelRecyclerView> bookArrayList;
@@ -42,17 +42,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
-        textview = findViewById(R.id.infotexther);
         user = auth.getCurrentUser();
+        searchbar = findViewById(R.id.searchBar);
 
 
-        if (user == null) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            textview.setText(user.getEmail());
-        }
 
         Button buttonLogout = findViewById(R.id.logud);
         buttonLogout.setOnClickListener(new View.OnClickListener() {

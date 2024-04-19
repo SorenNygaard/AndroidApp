@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     app:backgroundTint="@null"
     tools:context=".SellBookActivity">
 
@@ -24,7 +24,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/backButton"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        >
 
         <EditText
             android:id="@+id/editTextTitel"
@@ -32,8 +33,11 @@
             android:layout_height="wrap_content"
             android:hint="@string/bogtitel"
             android:inputType="text"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/HintGray"
+            android:layout_margin="5dp"
             />
 
         <EditText
@@ -43,7 +47,10 @@
             android:hint="@string/forfatter"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/HintGray"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
+            android:layout_margin="5dp"/>
 
         <EditText
             android:id="@+id/editTextPris"
@@ -52,7 +59,10 @@
             android:hint="@string/pris"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/HintGray"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
+            android:layout_margin="5dp"/>
 
         <EditText
             android:id="@+id/editTextUddannelse"
@@ -61,7 +71,10 @@
             android:hint="@string/uddannelse"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/HintGray"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
+            android:layout_margin="5dp"/>
 
         <EditText
             android:id="@+id/editTextSemester"
@@ -70,7 +83,10 @@
             android:hint="@string/semester"
             android:inputType="number"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/HintGray"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
+            android:layout_margin="5dp"/>
 
         <EditText
             android:id="@+id/editTextStand"
@@ -79,17 +95,21 @@
             android:hint="@string/bogens_stand"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/HintGray"
+            android:padding="10dp"
+            android:background="@drawable/custom_input_background"
+            android:layout_margin="5dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnIndsend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/buttonsfullwidth"
-            android:backgroundTint="@color/blue"
             android:text="@string/indsend"
-            android:textColorHint="@color/black" />
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

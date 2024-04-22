@@ -28,4 +28,6 @@
     <string name="pris">Pris</string>
     <string name="uddannelse">Uddannelse</string>
     <string name="semester">Semester</string>
+    <string name="image_view_description">Image of the book to sell</string>
+    <string name="upload_image">Upload Image</string>
 </resources>

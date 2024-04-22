@@ -66,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        Button buttonuser = findViewById(R.id.menu3);
+        buttonuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), UserSettingsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // RecyclerView setup
         recyclerView = findViewById(R.id.recyclerView);

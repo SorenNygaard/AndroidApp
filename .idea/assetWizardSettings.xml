@@ -79,7 +79,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Hanhan\Desktop\AAU\AAU_ORANGE_MØRKTONE.png" />
+                                                <entry key="imagePath" value="C:\Users\Hanhan\Desktop\AAU\AAU_AAUBLÅ.png" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -107,6 +107,11 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="outputName" value="my_image" />
                                     </map>
                                   </option>
                                 </PersistentState>

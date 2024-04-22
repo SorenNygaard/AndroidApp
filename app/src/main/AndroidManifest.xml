@@ -41,6 +41,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"/> <!-- Update this based on whether it needs to be accessed directly via intents -->
-
+        
+        <!-- UserSettings for logged-in users -->
+        <activity
+            android:name=".UserSettingsActivity"
+            android:exported="true"/>
     </application>
 </manifest>

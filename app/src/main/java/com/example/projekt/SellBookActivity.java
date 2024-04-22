@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +30,7 @@ public class SellBookActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private Uri imageUri;
-
+    ImageButton backButton;
     private ImageView imageViewBog;
     private Button btnUploadImage, btnIndsend;
     private EditText editTextTitel, editTextForfatter, editTextPris, editTextUddannelse, editTextSemester, editTextStand;
@@ -42,10 +42,11 @@ public class SellBookActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://projekt-50207.appspot.com");
-        databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("bøger");
+        databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("books");
 
         imageViewBog = findViewById(R.id.imageViewBog);
         btnUploadImage = findViewById(R.id.btnUploadImage);
+        backButton = findViewById(R.id.backButton);
         btnIndsend = findViewById(R.id.btnIndsend);
         editTextTitel = findViewById(R.id.editTextTitel);
         editTextForfatter = findViewById(R.id.editTextForfatter);
@@ -70,6 +71,15 @@ public class SellBookActivity extends AppCompatActivity {
                     Toast.makeText(SellBookActivity.this, "Vælg et billede først", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         });
     }
 

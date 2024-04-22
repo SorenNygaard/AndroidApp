@@ -1,78 +1,109 @@
 package com.example.projekt;
 
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public EditText signupEmail, signupPassword;
-    Button btnSignUp;
-    TextView loginRedirectText;
-    FirebaseAuth firebaseAuth;
+
+    FirebaseAuth auth;
+    SearchView searchbar;
+    FirebaseUser user;
+    RecyclerView recyclerView;
+    ArrayList<ModelRecyclerView> bookArrayList;
+
+    // Declaring adapter at the class level
+    AdapterRecycleView adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //
-        firebaseAuth = FirebaseAuth.getInstance();
-        signupEmail = findViewById(R.id.edEmail);
-        signupPassword = findViewById(R.id.edPassword);
-        btnSignUp = findViewById(R.id.btnSignUp);
-        loginRedirectText = findViewById(R.id.txtSignIn);
-        //
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String emailID = signupEmail.getText().toString();
-                String paswd = signupPassword.getText().toString();
-                if (emailID.isEmpty()) {
-                    signupEmail.setError("Provide your Email first!");
-                    signupEmail.requestFocus();
-                } else if (paswd.isEmpty()) {
-                    signupPassword.setError("Set your password");
-                    signupPassword.requestFocus();
-                } else if (emailID.isEmpty() && paswd.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
-                } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
-                    firebaseAuth.createUserWithEmailAndPassword(emailID, paswd).addOnCompleteListener(MainActivity.this, new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
 
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this.getApplicationContext(),
-                                        "SignUp unsuccessful: " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                startActivity(new Intent(MainActivity.this, UserActivity.class));
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        loginRedirectText.setOnClickListener(new View.OnClickListener() {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        searchbar = findViewById(R.id.searchBar);
+
+
+        Button buttonLogout = findViewById(R.id.logud);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent I = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(I);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
+        Button addbookbtn = findViewById(R.id.menu2);
+        addbookbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), SellBookActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // RecyclerView setup
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        bookArrayList = new ArrayList<>();
+        adapter = new AdapterRecycleView(this, bookArrayList); // Initializing adapter
+        recyclerView.setAdapter(adapter);
+        Log.d("RVLoad", "RecyclerView Adapter set up");
+        loadBookItems();
 
     }
+
+    private void loadBookItems() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("books");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                bookArrayList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    ModelRecyclerView model = ds.getValue(ModelRecyclerView.class);
+                    if (model != null) {
+                        bookArrayList.add(model);
+                    } else {
+                        Log.e("RVLoad", "Model is null");
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Log.d("RVLoad", "Data loaded successfully");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Failed to load books: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("RVLoad", "Failed to load books: " + error.getMessage());
+            }
+        });
+    }
 }
+
+

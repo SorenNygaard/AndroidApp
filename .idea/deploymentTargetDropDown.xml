@@ -4,6 +4,7 @@
     <value>
       <entry key="app">
         <State>
+<<<<<<< HEAD
           <targetSelectedWithDropDown>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
@@ -16,6 +17,20 @@
             </Target>
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-10T16:19:48.848259800Z" />
+=======
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="adb-R5CR500PSCY-TS8fpK._adb-tls-connect._tcp" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-18T20:47:53.784999800Z" />
+>>>>>>> 1c6fc1de01f0ecab9ea8c022cfc0733d90695b13
         </State>
       </entry>
     </value>

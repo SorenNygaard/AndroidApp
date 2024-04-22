@@ -2,46 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-    android:allowBackup="true"
-    android:dataExtractionRules="@xml/data_extraction_rules"
-    android:fullBackupContent="@xml/backup_rules"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/Theme.Projekt"
-    tools:targetApi="31">
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Projekt"
+        tools:targetApi="31">
 
-    <!-- Forside Activity -->
-    <activity
-        android:name=".Forside"
-        android:exported="false" />
+        <!-- LoginActivity is the main entry point -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <!-- User Activity -->
-    <activity
-        android:name=".UserActivity"
-        android:exported="true" />
 
-    <!-- LoginActivity -->
-    <activity
-        android:name=".LoginActivity"
-        android:exported="true" />
+        <!-- SellBookActivity for posting new book sales -->
+        <activity
+            android:name=".SellBookActivity"
+            android:exported="true" /> <!-- Set to true if accessed via notifications or other external means -->
 
-    <!-- MainActivity -->
-    <activity
-        android:name=".MainActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        <!-- SigninActivity for new user registration or sign-in -->
+        <activity
+            android:name=".SigninActivity"
+            android:exported="true"/> <!-- Set exported as needed -->
 
-    <!-- SellBookActivity -->
-    <activity
-        android:name=".SellBookActivity"
-        android:exported="true" />
+        <!-- UserActivity for logged-in users -->
 
-</application>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/> <!-- Update this based on whether it needs to be accessed directly via intents -->
+
+    </application>
 </manifest>

@@ -1,9 +1,11 @@
 package com.example.projekt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +15,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SellBookActivity extends AppCompatActivity {
 
-    EditText editTextTitle, editTextAuthor, editTextPrice;
-    Button btnSubmit;
+    EditText editTextTitel, editTextForfatter, editTextPris, editTextUddannelse, editTextSemester, editTextStand;
+    Button btnIndsend;
+    ImageButton backButton;
 
-    // Firebase Realtime Database URL for the Europe West (europe-west1) region
     private static final String FIREBASE_DATABASE_URL = "https://projekt-50207-default-rtdb.europe-west1.firebasedatabase.app/";
 
     @Override
@@ -24,57 +26,77 @@ public class SellBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_book);
 
-        editTextTitle = findViewById(R.id.editTextTitle);
-        editTextAuthor = findViewById(R.id.editTextAuthor);
-        editTextPrice = findViewById(R.id.editTextPrice);
-        btnSubmit = findViewById(R.id.btnSubmit);
+        editTextTitel = findViewById(R.id.editTextTitel);
+        editTextForfatter = findViewById(R.id.editTextForfatter);
+        editTextPris = findViewById(R.id.editTextPris);
+        editTextUddannelse = findViewById(R.id.editTextUddannelse);
+        editTextSemester = findViewById(R.id.editTextSemester);
+        editTextStand = findViewById(R.id.editTextStand);
+        btnIndsend = findViewById(R.id.btnIndsend);
+        backButton = findViewById(R.id.backButton);
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnIndsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitBook();
             }
         });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        });
     }
 
     private void submitBook() {
-        String title = editTextTitle.getText().toString().trim();
-        String author = editTextAuthor.getText().toString().trim();
-        String priceText = editTextPrice.getText().toString().trim();
+        String titel = editTextTitel.getText().toString().trim();
+        String forfatter = editTextForfatter.getText().toString().trim();
+        String prisText = editTextPris.getText().toString().trim();
+        String uddannelse = editTextUddannelse.getText().toString().trim();
+        String semester = editTextSemester.getText().toString().trim();
+        String stand = editTextStand.getText().toString().trim();
 
-        if (title.isEmpty() || author.isEmpty() || priceText.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+        if (titel.isEmpty() || forfatter.isEmpty() || prisText.isEmpty() || uddannelse.isEmpty() || semester.isEmpty() || stand.isEmpty()) {
+            Toast.makeText(this, "Udfyld venligst alle felter", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        double price;
+        double pris;
         try {
-            price = Double.parseDouble(priceText);
+            pris = Double.parseDouble(prisText);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid price format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ugyldigt prisformat", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Getting the Firebase database instance with specific URL
         DatabaseReference databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("books");
-        Book book = new Book(title, author, price);
-        databaseReference.push().setValue(book)
-                .addOnSuccessListener(aVoid -> Toast.makeText(SellBookActivity.this, "Book added successfully", Toast.LENGTH_LONG).show())
-                .addOnFailureListener(e -> Toast.makeText(SellBookActivity.this, "Failed to add book", Toast.LENGTH_LONG).show());
+
+        Bog bog = new Bog(titel, forfatter, pris, uddannelse, semester, stand);
+
+        databaseReference.push().setValue(bog)
+                .addOnSuccessListener(aVoid -> Toast.makeText(SellBookActivity.this, "Bog tilføjet succesfuldt", Toast.LENGTH_LONG).show())
+                .addOnFailureListener(e -> Toast.makeText(SellBookActivity.this, "Det lykkedes ikke at tilføje bogen", Toast.LENGTH_LONG).show());
     }
 
-    public static class Book {
-        public String title, author;
-        public double price;
+    public static class Bog {
+        public String titel, forfatter, uddannelse, semester, stand;
+        public double pris;
 
-        public Book() {
-            // Default constructor required for calls to DataSnapshot.getValue(Book.class)
+        public Bog() {
+            // Default constructor required for Firebase
         }
 
-        public Book(String title, String author, double price) {
-            this.title = title;
-            this.author = author;
-            this.price = price;
+        public Bog(String titel, String forfatter, double pris, String uddannelse, String semester, String stand) {
+            this.titel = titel;
+            this.forfatter = forfatter;
+            this.pris = pris;
+            this.uddannelse = uddannelse;
+            this.semester = semester;
+            this.stand = stand;
         }
     }
 }

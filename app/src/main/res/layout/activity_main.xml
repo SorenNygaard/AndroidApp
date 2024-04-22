@@ -1,89 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0"
+    android:background="@color/white"
+    app:backgroundTint="@null"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+    <!-- TextView -->
+    <TextView
+        android:id="@+id/velkomstText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="32dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="#FFFFFF">
+        android:padding="15dp"
+        android:text="Velkommen til AAU Martketplace"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="21sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/underVelkomst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/velkomstText"
+        android:layout_marginBottom="20dp"
+        android:text="- Køb og salg af studiebøger"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="15sp" />
+
+    <!-- Search Bar -->
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/underVelkomst"
+        android:drawableStart="@drawable/buttonsfullwidth"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/search"
+        android:textColorHint="@color/HintGray" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@id/navigation_buttons"
+        android:layout_below="@id/searchBar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/book_item" />
+
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:id="@+id/navigation_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.widget.Button
+            android:id="@+id/logud"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:text="@string/log_ud" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:textSize="24sp"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp"
-                android:textColor="#333333" />
+        <android.widget.Button
+            android:id="@+id/menu2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:text="@string/Sell_book" />
 
-            <EditText
-                android:id="@+id/edEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/custom_input_background"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="12dp"
-                android:padding="12dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textColor="#333333"
-                android:drawableTint="#808080"/>
+        <android.widget.Button
+            android:id="@+id/menu3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:textColor="@color/white" />
 
-            <EditText
-                android:id="@+id/edPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/custom_input_background"
-                android:drawableStart="@drawable/ic_lock"
-                android:drawablePadding="12dp"
-                android:padding="12dp"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColor="#333333"
-                android:drawableTint="#808080"/>
+        <android.widget.Button
+            android:id="@+id/menu4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation" />
 
-            <Button
-                android:id="@+id/btnSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Sign Up"
-                android:textSize="18sp"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#FFFFFF" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtSignIn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Already have an account? Sign in Here"
-                android:textSize="16sp"
-                android:textAlignment="center"
-                android:textColor="#1976D2" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

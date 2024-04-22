@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_navigation"
+            android:text="Min bruger"
             android:textColor="@color/white" />
 
         <android.widget.Button

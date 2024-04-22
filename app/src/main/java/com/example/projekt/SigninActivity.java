@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SigninActivity extends AppCompatActivity {
@@ -29,50 +30,46 @@ public class SigninActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         //
         firebaseAuth = FirebaseAuth.getInstance();
-        signupEmail = findViewById(R.id.edEmail);
-        signupPassword = findViewById(R.id.edPassword);
+        signupEmail = findViewById(R.id.Email);
+        signupPassword = findViewById(R.id.Password);
         btnSignUp = findViewById(R.id.btnSignUp);
         loginRedirectText = findViewById(R.id.txtSignIn);
         //
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailID = signupEmail.getText().toString();
-                String paswd = signupPassword.getText().toString();
-                if (emailID.isEmpty()) {
+                String Email = signupEmail.getText().toString();
+                String Password = signupPassword.getText().toString();
+                if (Email.isEmpty()) {
                     signupEmail.setError("Provide your Email first!");
                     signupEmail.requestFocus();
-                } else if (paswd.isEmpty()) {
+                }
+                if (Password.isEmpty()) {
                     signupPassword.setError("Set your password");
                     signupPassword.requestFocus();
-                } else if (emailID.isEmpty() && paswd.isEmpty()) {
-                    Toast.makeText(SigninActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
-                } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
-                    firebaseAuth.createUserWithEmailAndPassword(emailID, paswd).addOnCompleteListener(SigninActivity.this, new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(SigninActivity.this.getApplicationContext(),
-                                        "SignUp unsuccessful: " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                startActivity(new Intent(SigninActivity.this, UserActivity.class));
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(SigninActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        loginRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent I = new Intent(SigninActivity.this, LoginActivity.class);
-                startActivity(I);
-            }
-        });
+                    firebaseAuth.createUserWithEmailAndPassword(Email,Password)
+                            .addOnCompleteListener(SigninActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SigninActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(SigninActivity.this, MainActivity.class));
+                                        finish(); // Finish this activity to prevent going back with back button
+                                    } else {
+                                        Toast.makeText(SigninActivity.this, "Sign up failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+            });
 
+        loginRedirectText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SigninActivity.this, LoginActivity.class));
+                    finish();
+                }
+            });
+        }
     }
-}

@@ -1,56 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/white"
+    app:backgroundTint="@null"
+    tools:context=".SellBookActivity">
 
-    <EditText
-        android:id="@+id/editTextTitel"
+
+    <ImageButton
+        android:id="@+id/backButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Bogtitel"
-        android:inputType="text"/>
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button_navigation"
+        android:padding="30dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/backbutton" />
 
-    <EditText
-        android:id="@+id/editTextForfatter"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Forfatter"
-        android:inputType="text"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/backButton"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextPris"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Pris"
-        android:inputType="numberDecimal"/>
+        <EditText
+            android:id="@+id/editTextTitel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/bogtitel"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
 
-    <EditText
-        android:id="@+id/editTextUddannelse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Uddannelse"
-        android:inputType="text"/>
+        <EditText
+            android:id="@+id/editTextForfatter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/forfatter"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
 
-    <EditText
-        android:id="@+id/editTextSemester"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Semester"
-        android:inputType="number"/>
+        <EditText
+            android:id="@+id/editTextPris"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/pris"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
 
-    <EditText
-        android:id="@+id/editTextStand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Bogens stand"
-        android:inputType="text"/>
+        <EditText
+            android:id="@+id/editTextUddannelse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/uddannelse"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
 
-    <Button
-        android:id="@+id/btnIndsend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Indsend"
-        android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/editTextSemester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/semester"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
+
+        <EditText
+            android:id="@+id/editTextStand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_input_background"
+            android:hint="@string/bogens_stand"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnIndsend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:background="@drawable/buttonsfullwidth"
+            android:text="@string/indsend"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:backgroundTint="@null"
+    tools:context=".MainActivity">
+
+    <!-- TextView -->
+    <TextView
+        android:id="@+id/velkomstText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Velkommen til AAU Martketplace"
+        android:textAlignment="center"
+        android:textColor="@color/orange"
+        android:textSize="21sp" />
+
+    <TextView
+        android:id="@+id/underVelkomst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/velkomstText"
+        android:layout_marginBottom="20dp"
+        android:text="- Køb og salg af studiebøger"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="15sp" />
+
+    <!-- Search Bar -->
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/underVelkomst"
+        android:drawableStart="@drawable/buttonsfullwidth"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/search"
+        android:textColorHint="@color/HintGray" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_above="@id/navigation_buttons"
+        android:layout_below="@id/searchBar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/book_item" />
+
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:id="@+id/navigation_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.widget.Button
+            android:id="@+id/logud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:text="@string/log_ud" />
+
+        <android.widget.Button
+            android:id="@+id/menu2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:text="@string/Sell_book" />
+
+        <android.widget.Button
+            android:id="@+id/menu3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation"
+            android:textColor="@color/white" />
+
+        <android.widget.Button
+            android:id="@+id/menu4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_navigation" />
+
+    </LinearLayout>
+
+</RelativeLayout>

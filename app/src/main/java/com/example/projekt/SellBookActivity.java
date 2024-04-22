@@ -1,9 +1,11 @@
 package com.example.projekt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ public class SellBookActivity extends AppCompatActivity {
 
     EditText editTextTitel, editTextForfatter, editTextPris, editTextUddannelse, editTextSemester, editTextStand;
     Button btnIndsend;
+    ImageButton backButton;
 
     private static final String FIREBASE_DATABASE_URL = "https://projekt-50207-default-rtdb.europe-west1.firebasedatabase.app/";
 
@@ -30,12 +33,22 @@ public class SellBookActivity extends AppCompatActivity {
         editTextSemester = findViewById(R.id.editTextSemester);
         editTextStand = findViewById(R.id.editTextStand);
         btnIndsend = findViewById(R.id.btnIndsend);
+        backButton = findViewById(R.id.backButton);
 
         btnIndsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitBook();
             }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         });
     }
 
@@ -60,8 +73,10 @@ public class SellBookActivity extends AppCompatActivity {
             return;
         }
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("bøger");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("books");
+
         Bog bog = new Bog(titel, forfatter, pris, uddannelse, semester, stand);
+
         databaseReference.push().setValue(bog)
                 .addOnSuccessListener(aVoid -> Toast.makeText(SellBookActivity.this, "Bog tilføjet succesfuldt", Toast.LENGTH_LONG).show())
                 .addOnFailureListener(e -> Toast.makeText(SellBookActivity.this, "Det lykkedes ikke at tilføje bogen", Toast.LENGTH_LONG).show());

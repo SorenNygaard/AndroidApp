@@ -18,16 +18,16 @@
         android:src="@drawable/backbutton" />
     <LinearLayout
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        android:layout_below="@+id/backButton">
+       >
     <ImageView
         android:id="@+id/imageViewBog"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
-
         android:contentDescription="@string/image_view_description" />
 
     <androidx.appcompat.widget.AppCompatButton

@@ -3,16 +3,15 @@ package com.example.projekt;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class KøbbogkontaktsælgerActivity extends AppCompatActivity {
+public class buyAndSellActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kontakt_salger);
+        setContentView(R.layout.contact_buyer);
 
         // Her kan du hente data om bogen fra din database og vise det på forsiden
 

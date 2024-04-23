@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Billede af bogen -->
+    <ImageView
+        android:id="@+id/book_image"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/Strategibog"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Titel -->
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Strategi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/book_image"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Forfatter -->
+    <TextView
+        android:id="@+id/book_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flemming Poulfelt"
+        android:textSize="18sp"
+        android:layout_below="@id/book_title"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Pris -->
+
+    <!-- Knappen til at kontakte sælgeren -->
+
+    <TextView
+        android:id="@+id/education_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="4 semester"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/book_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_author"
+        android:layout_marginTop="53dp"
+        android:text="Pris: 199 kroner"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/contact_seller_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/book_price"
+        android:layout_marginTop="148dp"
+        android:background="@color/colorPrimary"
+        android:text="Kontakt Sælger"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

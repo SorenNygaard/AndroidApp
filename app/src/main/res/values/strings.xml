@@ -14,9 +14,9 @@
     <string name="Sell_book">Tilføj en bog</string>
 
     <!-- recycleview.book_item. -->
-    <string name="titleRV">Titel</string>
-    <string name="forfatterRV">Forfatter</string>
-    <string name="uddannelseRV">Uddannelse</string>
+    <string name="titleRV">Titel: </string>
+    <string name="forfatterRV">Forfatter: </string>
+    <string name="uddannelseRV">Uddannelse: </string>
     <string name="semesterRV">Semester</string>
     <string name="standRV">Stand</string>
     <string name="prisRV">Pris</string>

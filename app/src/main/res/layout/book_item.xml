@@ -20,69 +20,143 @@
 
             <android.widget.ImageView
                 android:id="@+id/imageBook"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="16dp"
+                android:scaleType="fitCenter"
+
+                android:src="@drawable/my_image_background" />
+            <!-- Labels for each book information -->
+            <TextView
+                android:id="@+id/label_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:src="@mipmap/my_image_foreground" />
+                android:layout_toEndOf="@id/imageBook"
+                android:text="Titel: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/itemtitle"
-                android:layout_width="match_parent"
+                android:id="@+id/label_forfatter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/titleRV"
+                android:layout_toEndOf="@id/imageBook"
+                android:layout_below="@id/label_title"
+                android:text="Forfatter: "
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/label_uddannelse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageBook"
+                android:layout_below="@id/label_forfatter"
+                android:text="Uddannelse: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_semester"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageBook"
+                android:layout_below="@id/label_uddannelse"
+                android:text="Semester: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_stand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageBook"
+                android:layout_below="@id/label_semester"
+                android:text="Stand: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_pris"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imageBook"
+                android:layout_below="@id/label_stand"
+                android:text="Pris: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <!-- Actual book information -->
+            <TextView
+                android:id="@+id/itemtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/label_title"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itemforfatter"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/itemtitle"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/forfatterRV"
+                android:layout_below="@id/label_title"
+                android:layout_toEndOf="@id/label_forfatter"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itemuddannelse"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/itemforfatter"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/uddannelseRV"
+                android:layout_below="@id/label_forfatter"
+                android:layout_toEndOf="@id/label_uddannelse"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itemsemester"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/itemuddannelse"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/semesterRV"
+                android:layout_below="@id/label_uddannelse"
+                android:layout_toEndOf="@id/label_semester"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itemstand"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/itemsemester"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/standRV"
+                android:layout_below="@id/label_semester"
+                android:layout_toEndOf="@id/label_stand"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itempris"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/itemstand"
-                android:layout_toEndOf="@+id/imageBook"
-                android:text="@string/prisRV"
+                android:layout_below="@id/label_stand"
+                android:layout_toEndOf="@id/label_pris"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
         </RelativeLayout>
 
     </LinearLayout>

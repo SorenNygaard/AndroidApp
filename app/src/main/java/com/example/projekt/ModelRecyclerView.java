@@ -2,18 +2,20 @@ package com.example.projekt;
 
 /**
  * ModelRecyclerView class represents a model for data to be displayed in a RecyclerView.
- * It encapsulates information about a book, including its titel, forfatter, uddannelse, semester, stand, og pris.
+ * It encapsulates information about a book, including its titel, forfatter, uddannelse, semester, stand, pris og billede.
  */
 public class ModelRecyclerView {
 
-    String titel, forfatter, uddannelse, semester, stand;
+    String titel, forfatter, uddannelse, semester, stand, imageUrl;
     Double pris;
+
     /**
      * Default constructor for ModelRecyclerView.
      * Initializes the object with default values.
      */
     public ModelRecyclerView() {
     }
+
     /**
      * Parameterized constructor for ModelRecyclerView.
      *
@@ -24,14 +26,14 @@ public class ModelRecyclerView {
      * @param stand      The stand information related to the book.
      * @param pris       The price of the book.
      */
-    public ModelRecyclerView(String titel, String forfatter, String uddannelse, String semester, String stand, Double pris) {
-        // Attributes representing various properties of a book
+    public ModelRecyclerView(String titel, String forfatter, String uddannelse, String semester, String stand, Double pris, String imageUrl) {
         this.titel = titel;
         this.forfatter = forfatter;
         this.uddannelse = uddannelse;
         this.semester = semester;
         this.stand = stand;
         this.pris = pris;
+        this.imageUrl = imageUrl;
     }
 
 
@@ -45,6 +47,7 @@ public class ModelRecyclerView {
     public String getTitel() {
         return titel;
     }
+
     /**
      * Sets the title of the book.
      *
@@ -92,5 +95,13 @@ public class ModelRecyclerView {
 
     public void setPris(Double pris) {
         this.pris = pris;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

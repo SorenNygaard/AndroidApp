@@ -6,14 +6,20 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class buyAndSellActivity extends AppCompatActivity {
 
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_buyer);
 
         // Her kan du hente data om bogen fra din database og vise det på forsiden
+        // Initialize DatabaseReference
+        databaseReference = FirebaseDatabase.getInstance().getReference("books");
 
         // Tilføj en knap til at kontakte sælgeren
         Button contactSellerButton = findViewById(R.id.contact_seller_button);

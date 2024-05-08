@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-
+        backButton = findViewById(R.id.backButton);
         Button deleteButton = findViewById(R.id.button3);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +42,102 @@ public class UserSettingsActivity extends AppCompatActivity {
                 showDeleteConfirmationDialog();
             }
         });
+        // Set OnClickListener for the backButton
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserSettingsActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        Button changePasswordButton = findViewById(R.id.changePasswordbtn);
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the new password from the input field
+                EditText newPasswordEditText = findViewById(R.id.passwordChange);
+                String newPassword = newPasswordEditText.getText().toString();
+
+                // Get the confirm password from the input field
+                EditText confirmPasswordEditText = findViewById(R.id.passwordChangeConfirm);
+                String confirmPassword = confirmPasswordEditText.getText().toString();
+
+                // Call the changePassword function with both passwords
+                changePassword(newPassword, confirmPassword);
+            }
+        });
+    }
+    private void changePassword(String newPassword, String confirmPassword) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            if (newPassword.equals(confirmPassword)) {
+                // Prompt the user to re-enter their current password for reauthentication
+                showReauthenticationPrompt(currentUser, newPassword);
+            } else {
+                Toast.makeText(UserSettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(UserSettingsActivity.this, "No user signed in", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    private void showReauthenticationPrompt(FirebaseUser user, String newPassword) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Reauthentication");
+        builder.setMessage("Please enter your current password to proceed");
+
+        final EditText inputPassword = new EditText(this);
+        builder.setView(inputPassword);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String password = inputPassword.getText().toString();
+                reauthenticateUser(user, password, newPassword);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void reauthenticateUser(FirebaseUser user, String password, String newPassword) {
+        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Reauthentication successful, proceed with password update
+                            updatePassword(user, newPassword);
+                        } else {
+                            // Reauthentication failed
+                            Toast.makeText(UserSettingsActivity.this, "Reauthentication failed. Please enter the correct password.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void updatePassword(FirebaseUser user, String newPassword) {
+        user.updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Password updated successfully
+                            Toast.makeText(UserSettingsActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Password update failed
+                            Toast.makeText(UserSettingsActivity.this, "Failed to change password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete your account?");

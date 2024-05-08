@@ -13,11 +13,10 @@ import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.projekt.Bog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,9 +39,14 @@ public class SellBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_book);
 
+        // Initialize DatabaseManager
+        DatabaseManager.initialize();
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://projekt-50207.appspot.com");
-        databaseReference = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL).getReference("books");
+
+        // Assign the DatabaseReference
+        databaseReference = DatabaseManager.getDatabaseReference().child("books");
 
         imageViewBog = findViewById(R.id.imageViewBog);
         btnUploadImage = findViewById(R.id.btnUploadImage);
@@ -55,6 +59,14 @@ public class SellBookActivity extends AppCompatActivity {
         editTextSemester = findViewById(R.id.editTextSemester);
         editTextStand = findViewById(R.id.editTextStand);
 
+        // Set OnClickListener for the backButton
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SellBookActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,16 +84,8 @@ public class SellBookActivity extends AppCompatActivity {
                 }
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-        });
     }
+
 
     private void openFileChooser() {
         Intent intent = new Intent();
@@ -127,49 +131,43 @@ public class SellBookActivity extends AppCompatActivity {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-
     private void submitBook(String imageUrl) {
-        String titel = editTextTitel.getText().toString().trim();
-        String forfatter = editTextForfatter.getText().toString().trim();
-        String prisText = editTextPris.getText().toString().trim();
-        String uddannelse = editTextUddannelse.getText().toString().trim();
-        String semester = editTextSemester.getText().toString().trim();
-        String stand = editTextStand.getText().toString().trim();
+        // Get the current user's ID from DatabaseManager
+        String userId = DatabaseManager.getCurrentUserId();
 
-        // Validation and parsing code...
+        if (userId != null) {
+            String titel = editTextTitel.getText().toString().trim();
+            String forfatter = editTextForfatter.getText().toString().trim();
+            String prisText = editTextPris.getText().toString().trim();
+            String uddannelse = editTextUddannelse.getText().toString().trim();
+            String semester = editTextSemester.getText().toString().trim();
+            String stand = editTextStand.getText().toString().trim();
 
-        Bog bog = new Bog(titel, forfatter, Double.parseDouble(prisText), uddannelse, semester, stand, imageUrl);
-        databaseReference.push().setValue(bog)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(SellBookActivity.this, "Bog tilføjet succesfuldt", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SellBookActivity.this, "Det lykkedes ikke at tilføje bogen", Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
+            // Create a new instance of Bog class
+            Bog bog = new Bog(titel, forfatter, Double.parseDouble(prisText), uddannelse, semester, stand, imageUrl);
 
-    public static class Bog {
-        public String titel, forfatter, uddannelse, semester, stand, imageUrl;
-        public double pris;
+            // Set the user ID for the book
+            bog.setUserId(userId);
 
-        public Bog() {
-            // Default constructor required for Firebase
+            // Push the bog object to the database
+            databaseReference.push().setValue(bog)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(SellBookActivity.this, "Bog tilføjet succesfuldt", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SellBookActivity.this, "Det lykkedes ikke at tilføje bogen", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
+            // Handle the case when the user ID is not available
+            Toast.makeText(SellBookActivity.this, "Unable to get current user ID", Toast.LENGTH_LONG).show();
         }
 
-        public Bog(String titel, String forfatter, double pris, String uddannelse, String semester, String stand, String imageUrl) {
-            this.titel = titel;
-            this.forfatter = forfatter;
-            this.pris = pris;
-            this.uddannelse = uddannelse;
-            this.semester = semester;
-            this.stand = stand;
-            this.imageUrl = imageUrl;
-        }
     }
+
 }

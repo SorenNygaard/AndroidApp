@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +21,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
@@ -67,6 +73,7 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
     }
+
     private void changePassword(String newPassword, String confirmPassword) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -138,6 +145,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete your account?");
@@ -210,7 +218,51 @@ public class UserSettingsActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void loadUserBooks() {
+        String currentUserId = DatabaseManager.getCurrentUserId();
+        if (currentUserId != null) {
+            // Read data from the "books" node using DatabaseManager
+            DatabaseManager.readData("books", new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList<ModelRecyclerView> userBooks = new ArrayList<>();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        ModelRecyclerView model = ds.getValue(ModelRecyclerView.class);
+                        // Add book to the list if it exists and doesn't require user filtering
+                        if (model != null) {
+                            userBooks.add(model);
+                        }
+                    }
+                    // Display user's books in the "Min Historik" section
+                    displayUserBooks(userBooks);
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(UserSettingsActivity.this, "Failed to load user books: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(UserSettingsActivity.this, "No user signed in", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void displayUserBooks(ArrayList<ModelRecyclerView> userBooks) {
+        // Update UI with user's books
+        // For example, you can create a RecyclerView to display the books
+        // Initialize RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterRecycleView adapter = new AdapterRecycleView(this, userBooks);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Load user's books when the activity resumes
+        loadUserBooks();
+    }
     private void navigateToSignInActivity() {
         Intent intent = new Intent(UserSettingsActivity.this, SigninActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack

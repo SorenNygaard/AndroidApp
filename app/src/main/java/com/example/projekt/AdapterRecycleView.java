@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.HolderBook> {
-    private Context context;
-    private ArrayList<ModelRecyclerView> bookArrayList;
+    private final Context context;
+    private final ArrayList<ModelRecyclerView> bookArrayList;
     private OnItemClickListener mListener;
 
     // Interface for click listener

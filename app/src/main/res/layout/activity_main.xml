@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    app:backgroundTint="@null"
+
     tools:context=".MainActivity">
+
 
     <!-- TextView -->
     <TextView
@@ -31,27 +32,27 @@
         android:textSize="15sp" />
 
     <!-- Search Bar -->
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/underVelkomst"
-        android:drawableStart="@drawable/buttonsfullwidth"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:hint="@string/search"
-        android:textColorHint="@color/HintGray" />
+        android:theme="@style/SearchView"
+        app:queryHint="Søg efter titel"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/textfields"/>
+
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/navigation_buttons"
-        android:layout_below="@id/searchBar"
+        android:layout_below="@+id/searchBar"
+        android:clickable="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/book_item"
-        android:clickable="true"/>
+        tools:listitem="@layout/book_item" />
 
 
     <!-- Navigation Buttons -->
@@ -69,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_navigation"
-            android:text="@string/log_ud" />
+            android:text="@string/log_ud"
+            android:textColor="@color/white" />
 
         <android.widget.Button
             android:id="@+id/menu2"
@@ -77,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_navigation"
-            android:text="@string/Sell_book" />
+            android:text="@string/Sell_book"
+            android:textColor="@color/white" />
 
         <android.widget.Button
             android:id="@+id/menu3"

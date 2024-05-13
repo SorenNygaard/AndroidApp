@@ -9,9 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.Toast;
 
+import android.widget.Toast;
+import androidx.appcompat.widget.SearchView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +35,13 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
 
         // Set up SearchView
         searchbar = findViewById(R.id.searchBar);
+
+        searchbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchbar.setIconified(false);
+            }
+        });
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         Intent intent = new Intent(MainActivity.this, buyAndSellActivity.class);
 
         // Pass necessary data to the buyAndSellActivity
+        intent.putExtra("book_image", clickedItem.getImageUrl());
         intent.putExtra("book_title", clickedItem.getTitel());
         intent.putExtra("book_author", clickedItem.getForfatter());
         intent.putExtra("book_education", clickedItem.getUddannelse());

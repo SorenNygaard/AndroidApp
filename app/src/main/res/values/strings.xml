@@ -9,7 +9,7 @@
     <string name="already_have_an_account_sign_in_here">Allerede bruger? Log ind her</string>
     <string name="bogens_stand">Stand</string>
     <string name="indsend">Tilføj bog</string>
-    <string name="search">Search</string>
+    <string name="search">Søg efter titel</string>
     <string name="log_ud">LogUd</string>
     <string name="Sell_book">Tilføj en bog</string>
 
@@ -30,4 +30,5 @@
     <string name="semester">Semester</string>
     <string name="image_view_description">Image of the book to sell</string>
     <string name="upload_image">Upload Image</string>
+
 </resources>

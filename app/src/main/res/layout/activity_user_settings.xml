@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Ændre dit password"
+        android:text="Skift dit password"
         android:layout_below="@id/backButton"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -67,7 +67,7 @@
         android:id="@+id/changePasswordbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ændre password"
+        android:text="Skift password"
         android:layout_below="@id/passwordChangeConfirm"
         android:layout_marginBottom="20dp"
         android:background="@drawable/buttonsfullwidth"
@@ -85,6 +85,11 @@
         android:textStyle="bold"
         />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
 
     </LinearLayout>

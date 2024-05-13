@@ -1,34 +1,51 @@
 package com.example.projekt;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import com.squareup.picasso.Picasso;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 public class buyAndSellActivity extends AppCompatActivity {
 
-    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_buyer);
 
-        // Her kan du hente data om bogen fra din database og vise det på forsiden
-        // Initialize DatabaseReference
-        databaseReference = FirebaseDatabase.getInstance().getReference("books");
+        // Retrieve the information from the intent
+        String bookTitle = getIntent().getStringExtra("book_title");
+        String bookAuthor = getIntent().getStringExtra("book_author");
+        String bookEducation = getIntent().getStringExtra("book_education");
+        String bookSemester = getIntent().getStringExtra("book_semester");
+        String bookCondition = getIntent().getStringExtra("book_condition");
+        String bookPrice = getIntent().getStringExtra("book_price");
+        // Retrieve image URI from the intent
+        String imageUrl = getIntent().getStringExtra("book_image");
 
-        // Tilføj en knap til at kontakte sælgeren
-        Button contactSellerButton = findViewById(R.id.contact_seller_button);
-        contactSellerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Her kan du implementere logikken til at kontakte sælgeren, f.eks. åbne en ny aktivitet eller vise en dialog
+        // Load the image into the ImageView
+        ImageView imageView = findViewById(R.id.book_image);
+        Picasso.get().load(imageUrl).into(imageView);
 
-            }
-        });
+        // Display the information in TextViews
+        TextView titleTextView = findViewById(R.id.book_title);
+        titleTextView.setText(bookTitle);
+
+        TextView authorTextView = findViewById(R.id.book_author);
+        authorTextView.setText(bookAuthor);
+
+        TextView educationTextView = findViewById(R.id.book_education);
+        educationTextView.setText(bookEducation);
+
+        TextView semesterTextView = findViewById(R.id.book_semester);
+        semesterTextView.setText(bookSemester);
+
+        TextView conditionTextView = findViewById(R.id.book_condition);
+        conditionTextView.setText(bookCondition);
+
+        TextView priceTextView = findViewById(R.id.book_price);
+        priceTextView.setText(bookPrice);
     }
 }

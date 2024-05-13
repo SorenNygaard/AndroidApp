@@ -1,71 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
 
-    <!-- Billede af bogen -->
-    <ImageView
-        android:id="@+id/book_image"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_centerHorizontal="true" />
+    >
 
-    <!-- Titel -->
-    <TextView
-        android:id="@+id/book_title"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Strategi"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_below="@id/book_image"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/button_navigation"
+        android:padding="30dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/backbutton"
 
-    <!-- Forfatter -->
-    <TextView
-        android:id="@+id/book_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Flemming Poulfelt"
-        android:textSize="18sp"
-        android:layout_below="@id/book_title"
-        android:layout_marginTop="8dp"
-        android:layout_centerHorizontal="true" />
+        /><android.widget.ImageView
+    android:id="@+id/book_image"
+    android:layout_width="400dp"
+    android:layout_height="300dp"
+    android:scaleType="fitCenter"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="16dp"
+    android:src="@drawable/my_image_background" android:layout_gravity="center"
 
-    <!-- Pris -->
+    />
 
-    <!-- Knappen til at kontakte sælgeren -->
 
-    <TextView
-        android:id="@+id/education_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="4 semester"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/book_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/book_author"
-        android:layout_marginTop="53dp"
-        android:text="Pris: 199 kroner"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/contact_seller_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/book_price"
-        android:layout_marginTop="148dp"
-        android:background="@color/white"
-        android:text="Kontakt Sælger"
-        android:textColor="@android:color/black" />
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:padding="16dp"
 
-</RelativeLayout>
+
+            >
+            <!-- Billede af bogen -->
+
+
+            <!-- Labels for each book information -->
+            <TextView
+                android:id="@+id/label_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Titel: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_forfatter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forfatter: "
+                android:layout_below="@id/label_title"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/label_uddannelse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uddannelse: "
+                android:layout_below="@id/label_forfatter"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_semester"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semester: "
+                android:layout_below="@id/label_uddannelse"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_stand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stand: "
+                android:layout_below="@id/label_semester"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/label_pris"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_below="@id/label_stand"
+                android:text="Pris: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <!-- Actual book information -->
+            <TextView
+                android:id="@+id/book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_toEndOf="@id/label_title"
+
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/book_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_toEndOf="@id/label_forfatter"
+                android:layout_below="@id/book_title"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/book_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/label_uddannelse"
+                android:layout_below="@id/book_author"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/book_semester"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/book_education"
+                android:layout_toEndOf="@id/label_uddannelse"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/book_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/book_semester"
+                android:layout_toEndOf="@id/label_stand"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/book_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/book_condition"
+                android:layout_toEndOf="@id/label_pris"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </RelativeLayout>
+        <!-- Knappen til at kontakte sælgeren -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/contact_seller_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttonsfullwidth"
+            android:text="Kontakt Sælger"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+
+
+
+

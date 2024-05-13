@@ -24,10 +24,10 @@ import com.google.firebase.storage.UploadTask;
 public class SellBookActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final String FIREBASE_DATABASE_URL = "https://projekt-50207-default-rtdb.europe-west1.firebasedatabase.app/";
+
     private FirebaseStorage storage;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+
     private Uri imageUri;
     ImageButton backButton;
     private ImageView imageViewBog;
@@ -45,8 +45,6 @@ public class SellBookActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://projekt-50207.appspot.com");
 
-        // Assign the DatabaseReference
-        databaseReference = DatabaseManager.getDatabaseReference().child("books");
 
         imageViewBog = findViewById(R.id.imageViewBog);
         btnUploadImage = findViewById(R.id.btnUploadImage);
@@ -149,20 +147,8 @@ public class SellBookActivity extends AppCompatActivity {
             // Set the user ID for the book
             bog.setUserId(userId);
 
-            // Push the bog object to the database
-            databaseReference.push().setValue(bog)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(SellBookActivity.this, "Bog tilføjet succesfuldt", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SellBookActivity.this, "Det lykkedes ikke at tilføje bogen", Toast.LENGTH_LONG).show();
-                        }
-                    });
+            // Write data to the database using DatabaseManager
+            DatabaseManager.writeData("books", bog);
         } else {
             // Handle the case when the user ID is not available
             Toast.makeText(SellBookActivity.this, "Unable to get current user ID", Toast.LENGTH_LONG).show();

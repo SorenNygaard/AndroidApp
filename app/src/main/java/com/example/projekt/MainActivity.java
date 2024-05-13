@@ -11,30 +11,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.Query;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterRecycleView.OnItemClickListener {
 
     SearchView searchbar;
     RecyclerView recyclerView;
     ArrayList<ModelRecyclerView> bookArrayList;
     AdapterRecycleView adapter;
-    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize DatabaseReference
-        databaseReference = FirebaseDatabase.getInstance().getReference("books");
+        // Initialize DatabaseManager
+        DatabaseManager.initialize();
 
         // Set up SearchView
         searchbar = findViewById(R.id.searchBar);
@@ -59,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         bookArrayList = new ArrayList<>();
         adapter = new AdapterRecycleView(this, bookArrayList);
         recyclerView.setAdapter(adapter);
+
+        // Set item click listener after initializing adapter
+        adapter.setOnItemClickListener(this);
 
         // Set up buttons
         Button buttonLogout = findViewById(R.id.logud);
@@ -96,8 +96,27 @@ public class MainActivity extends AppCompatActivity {
         loadBookItems();
     }
 
+    @Override
+    public void onItemClick(int position) {
+        // Handle item click here
+        ModelRecyclerView clickedItem = bookArrayList.get(position);
+
+        // Create an intent to launch the buyAndSellActivity
+        Intent intent = new Intent(MainActivity.this, buyAndSellActivity.class);
+
+        // Pass necessary data to the buyAndSellActivity
+        intent.putExtra("book_title", clickedItem.getTitel());
+        intent.putExtra("book_author", clickedItem.getForfatter());
+        intent.putExtra("book_education", clickedItem.getUddannelse());
+        intent.putExtra("book_semester", clickedItem.getSemester());
+        intent.putExtra("book_condition", clickedItem.getStand());
+        intent.putExtra("book_price", clickedItem.getPris());
+
+        startActivity(intent);
+    }
     private void loadBookItems() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        // Read data from the "books" node using DatabaseManager
+        DatabaseManager.readData("books", new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 bookArrayList.clear();
@@ -118,48 +137,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchBooks(String query) {
-        // Convert the query to lowercase
-        String lowercaseQuery = query.toLowerCase();
-
-        // Convert the query to uppercase
-        String uppercaseQuery = query.toUpperCase();
-
-        // Get the reference to the "books" node in the Firebase Realtime Database
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("books");
-
-        // Construct the Firebase query for searching by the "titel" field
-        Query searchQuery = reference.orderByChild("titel")
-                .startAt(uppercaseQuery)
-                .endAt(lowercaseQuery + "\uf8ff");
-
-        // Add a ValueEventListener to the query
-        searchQuery.addValueEventListener(new ValueEventListener() {
+        // Search books using DatabaseManager
+        DatabaseManager.searchBooks("books", query, new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Clear the existing bookArrayList
                 bookArrayList.clear();
-
-                // Iterate through the DataSnapshot to retrieve the matching book items
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    // Convert the DataSnapshot into a ModelRecyclerView object
                     ModelRecyclerView model = ds.getValue(ModelRecyclerView.class);
                     if (model != null) {
-                        // Add the ModelRecyclerView object to the bookArrayList
                         bookArrayList.add(model);
                     }
                 }
-
-                // Notify the adapter that the dataset has changed
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle the onCancelled event, if needed
                 Toast.makeText(MainActivity.this, "Search failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 }
-

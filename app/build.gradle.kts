@@ -44,7 +44,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:21.6.2")
     implementation("com.google.firebase:firebase-storage:20.3.0")
 
-
     implementation ("com.squareup.picasso:picasso:2.71828")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

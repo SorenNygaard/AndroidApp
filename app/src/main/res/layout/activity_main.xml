@@ -50,7 +50,8 @@
         android:layout_above="@id/navigation_buttons"
         android:layout_below="@id/searchBar"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/book_item" />
+        tools:listitem="@layout/book_item"
+        android:clickable="true"/>
 
 
     <!-- Navigation Buttons -->

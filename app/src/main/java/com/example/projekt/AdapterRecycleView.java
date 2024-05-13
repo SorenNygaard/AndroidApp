@@ -14,12 +14,21 @@ import java.util.ArrayList;
 public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.HolderBook> {
     private Context context;
     private ArrayList<ModelRecyclerView> bookArrayList;
+    private OnItemClickListener mListener;
+
+    // Interface for click listener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public AdapterRecycleView(Context context, ArrayList<ModelRecyclerView> bookArrayList) {
         this.context = context;
         this.bookArrayList = bookArrayList;
     }
-
     @NonNull
     @Override
     public HolderBook onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +41,7 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
         ModelRecyclerView model = bookArrayList.get(position);
         holder.bindData(model);
         Picasso.get().load(model.getImageUrl()).into(holder.imageBook);
+
     }
 
     @Override
@@ -58,6 +68,18 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
             prisTextView = itemView.findViewById(R.id.itempris);
             imageBook = itemView.findViewById(R.id.imageBook);
 
+            // Set click listener
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
 
         public void bindData(ModelRecyclerView model) {

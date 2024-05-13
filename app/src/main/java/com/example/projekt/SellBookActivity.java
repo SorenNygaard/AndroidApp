@@ -13,6 +13,8 @@ import android.widget.Toast;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 import com.example.projekt.Bog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -97,10 +99,12 @@ public class SellBookActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            imageViewBog.setImageURI(imageUri);
+            // Load and display the selected image using Glide
+            Glide.with(this)
+                    .load(imageUri)
+                    .into(imageViewBog);
         }
     }
-
     private void uploadImageToFirebase(final Uri imageUri) {
         final StorageReference fileReference = storageReference.child("uploads/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
         fileReference.putFile(imageUri)
@@ -125,9 +129,7 @@ public class SellBookActivity extends AppCompatActivity {
     }
 
     private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
     }
     private void submitBook(String imageUrl) {
         // Get the current user's ID from DatabaseManager
@@ -148,7 +150,7 @@ public class SellBookActivity extends AppCompatActivity {
             bog.setUserId(userId);
 
             // Write data to the database using DatabaseManager
-            DatabaseManager.writeData("books", bog);
+            DatabaseManager.writeData("books", bog, SellBookActivity.this);
         } else {
             // Handle the case when the user ID is not available
             Toast.makeText(SellBookActivity.this, "Unable to get current user ID", Toast.LENGTH_LONG).show();

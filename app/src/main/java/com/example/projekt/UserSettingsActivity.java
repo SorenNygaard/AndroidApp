@@ -29,9 +29,9 @@ import java.util.ArrayList;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
+    ImageButton backButton;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,35 +115,33 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     private void reauthenticateUser(FirebaseUser user, String password, String newPassword) {
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Reauthentication successful, proceed with password update
-                            updatePassword(user, newPassword);
-                        } else {
-                            // Reauthentication failed
-                            Toast.makeText(UserSettingsActivity.this, "Reauthentication failed. Please enter the correct password.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Reauthentication successful, proceed with password update
+                    updatePassword(user, newPassword);
+                } else {
+                    // Reauthentication failed
+                    Toast.makeText(UserSettingsActivity.this, "Reauthentication failed. Please enter the correct password.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void updatePassword(FirebaseUser user, String newPassword) {
-        user.updatePassword(newPassword)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Password updated successfully
-                            Toast.makeText(UserSettingsActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Password update failed
-                            Toast.makeText(UserSettingsActivity.this, "Failed to change password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Password updated successfully
+                    Toast.makeText(UserSettingsActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Password update failed
+                    Toast.makeText(UserSettingsActivity.this, "Failed to change password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void showDeleteConfirmationDialog() {
@@ -191,33 +189,33 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     private void deleteAccount(String password) {
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // User re-authenticated successfully, proceed with account deletion
-                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        // Account deleted successfully
-                                        navigateToSignInActivity();
-                                    } else {
-                                        // Failed to delete account
-                                        // Display appropriate error message or handle the error
-                                        Toast.makeText(UserSettingsActivity.this, "Failed to delete account: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        } else {
-                            // Re-authentication failed
-                            // Display appropriate error message or handle the error
-                            Toast.makeText(UserSettingsActivity.this, "Re-authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // User re-authenticated successfully, proceed with account deletion
+                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Account deleted successfully
+                                navigateToSignInActivity();
+                            } else {
+                                // Failed to delete account
+                                // Display appropriate error message or handle the error
+                                Toast.makeText(UserSettingsActivity.this, "Failed to delete account: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    // Re-authentication failed
+                    // Display appropriate error message or handle the error
+                    Toast.makeText(UserSettingsActivity.this, "Re-authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
     private void loadUserBooks() {
         String currentUserId = DatabaseManager.getCurrentUserId();
         if (currentUserId != null) {
@@ -263,6 +261,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         // Load user's books when the activity resumes
         loadUserBooks();
     }
+
     private void navigateToSignInActivity() {
         Intent intent = new Intent(UserSettingsActivity.this, SigninActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack

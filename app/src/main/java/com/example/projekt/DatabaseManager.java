@@ -1,10 +1,11 @@
 package com.example.projekt;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -40,16 +41,16 @@ public class DatabaseManager {
     }
 
     // Method to write data to the database
-    public static void writeData(String child, Object data) {
+    public static void writeData(String child, Object data, Context context) {
         DatabaseReference newChildRef = databaseReference.child(child).push();
         newChildRef.setValue(data)
                 .addOnSuccessListener(aVoid -> {
                     Log.d("DatabaseManager", "Data successfully written to the database");
-                    // Show success message if needed
+                    Toast.makeText(context, "Book added successfully", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
                     Log.e("DatabaseManager", "Error writing data to the database", e);
-                    // Show failure message if needed
+                    Toast.makeText(context, "Failed to add book: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
     // Method to search books in the database

@@ -57,15 +57,12 @@ public class DatabaseManager {
         // Convert the query to lowercase
         String lowercaseQuery = query.toLowerCase();
 
-        // Convert the query to uppercase
-        String uppercaseQuery = query.toUpperCase();
-
         // Get the reference to the specified node in the Firebase Realtime Database
         DatabaseReference reference = databaseReference.child(child);
 
         // Construct the Firebase query for searching
         Query searchQuery = reference.orderByChild("titel")
-                .startAt(uppercaseQuery)
+                .startAt(lowercaseQuery)
                 .endAt(lowercaseQuery + "\uf8ff");
 
         // Add a ValueEventListener to the query

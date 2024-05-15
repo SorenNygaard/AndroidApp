@@ -102,7 +102,9 @@ public class SellBookActivity extends AppCompatActivity {
             // Load and display the selected image using Glide
             Glide.with(this)
                     .load(imageUri)
+                    .placeholder(R.drawable.baseline_insert_photo_24)
                     .into(imageViewBog);
+
         }
     }
     private void uploadImageToFirebase(final Uri imageUri) {

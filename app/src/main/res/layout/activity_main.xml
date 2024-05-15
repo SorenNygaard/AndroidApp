@@ -8,39 +8,43 @@
 
     tools:context=".MainActivity">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
     <!-- TextView -->
     <TextView
         android:id="@+id/velkomstText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="10dp"
         android:text="Velkommen til AAU Martketplace"
         android:textAlignment="center"
         android:textColor="@color/orange"
-        android:textSize="21sp" />
+        android:textSize="23sp" />
 
     <TextView
         android:id="@+id/underVelkomst"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/velkomstText"
+
         android:layout_marginBottom="20dp"
         android:text="- Køb og salg af studiebøger"
         android:textAlignment="center"
         android:textColor="@color/blue"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
 
     <!-- Search Bar -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/underVelkomst"
+        android:padding="5dp"
+        android:background="@drawable/textfields"
         android:theme="@style/SearchView"
-        app:queryHint="Søg efter titel"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/textfields"/>
+        app:queryHint="Søg efter titel" />
 
 
     <!-- RecyclerView -->
@@ -48,12 +52,12 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/navigation_buttons"
-        android:layout_below="@+id/searchBar"
+
         android:clickable="true"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/book_item" />
-
+</LinearLayout>
 
     <!-- Navigation Buttons -->
     <LinearLayout

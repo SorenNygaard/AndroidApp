@@ -46,7 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Bogtitel"
-        android:inputType="text"
+        android:inputType="textCapSentences"
+
         android:textColor="@color/black"
         android:textColorHint="@color/black"/>
 
@@ -55,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Forfatter"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:textColor="@color/black"
         android:textColorHint="@color/black"/>
 
@@ -73,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Uddannelse"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:textColor="@color/black"
         android:textColorHint="@color/black"/>
 
@@ -91,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Bogens stand"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:textColor="@color/black"
         android:textColorHint="@color/black"/>
 

@@ -16,6 +16,10 @@
         android:padding="30dp"
         android:scaleType="fitStart"
         android:src="@drawable/backbutton" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/backButton">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,6 +56,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
+
             android:id="@+id/label_passwordchange"/>
 
         <EditText
@@ -65,6 +70,7 @@
             android:hint="Nyt password"
             android:inputType="textPassword"
             android:padding="12dp"
+
             android:textColor="@color/black"
             android:textColorHint="@color/HintGray" />
 
@@ -74,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordChange"
             android:layout_marginBottom="10dp"
+
             android:background="@drawable/custom_input_background"
             android:drawablePadding="12dp"
             android:hint="Gentag password"
@@ -96,6 +103,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
         android:layout_width="match_parent"

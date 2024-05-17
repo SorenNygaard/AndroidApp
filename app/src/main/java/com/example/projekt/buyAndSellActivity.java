@@ -32,7 +32,7 @@ public class buyAndSellActivity extends AppCompatActivity {
         String bookEducation = getIntent().getStringExtra("book_education");
         String bookSemester = getIntent().getStringExtra("book_semester");
         String bookCondition = getIntent().getStringExtra("book_condition");
-        String bookPrice = getIntent().getStringExtra("book_price");
+        double price = getIntent().getDoubleExtra("book_price", 0);
         // Retrieve image URI from the intent
         String imageUrl = getIntent().getStringExtra("book_image");
 
@@ -57,7 +57,7 @@ public class buyAndSellActivity extends AppCompatActivity {
         conditionTextView.setText(bookCondition);
 
         TextView priceTextView = findViewById(R.id.book_price);
-        priceTextView.setText(bookPrice);
+        priceTextView.setText(String.valueOf(price));
     }
 
 }

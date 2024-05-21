@@ -10,3 +10,6 @@
 .idea/deploymentTargetDropDown.xml
 .idea/workspace.xml
 local.properties
+app/src/main/.DS_Store
+app/src/main/java/.DS_Store
+app/src/main/java/com/.DS_Store

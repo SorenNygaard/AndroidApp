@@ -62,9 +62,9 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
             super(itemView);
             titleTextView = itemView.findViewById(R.id.itemtitle);
             authorTextView = itemView.findViewById(R.id.itemforfatter);
-            uddannelseTextView = itemView.findViewById(R.id.itemuddannelse);
+            // uddannelseTextView = itemView.findViewById(R.id.itemuddannelse); fjern kommentar hvis de ønskes på forsiden også i bindData
             standTextView = itemView.findViewById(R.id.itemstand);
-            semesterTextView = itemView.findViewById(R.id.itemsemester);
+           // semesterTextView = itemView.findViewById(R.id.itemsemester);
             prisTextView = itemView.findViewById(R.id.itempris);
             imageBook = itemView.findViewById(R.id.imageBook);
 
@@ -85,10 +85,10 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
         public void bindData(ModelRecyclerView model) {
             titleTextView.setText(model.getTitel());
             authorTextView.setText(model.getForfatter());
-            uddannelseTextView.setText(model.getUddannelse());
+           // uddannelseTextView.setText(model.getUddannelse());
             standTextView.setText(model.getStand());
-            semesterTextView.setText(model.getSemester());
-            prisTextView.setText(String.valueOf(model.getPris()));
+           // semesterTextView.setText(model.getSemester());
+            prisTextView.setText(String.valueOf(model.getPris()+"kr"));
         }
     }
 }

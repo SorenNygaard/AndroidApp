@@ -16,6 +16,10 @@
         android:padding="30dp"
         android:scaleType="fitStart"
         android:src="@drawable/backbutton" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/backButton">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,63 +27,13 @@
         android:padding="16dp"
         android:layout_below="@id/backButton">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Skift dit password"
-        android:layout_below="@id/backButton"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:id="@+id/label_passwordchange"/>
 
-    <EditText
-        android:id="@+id/passwordChange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label_passwordchange"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/custom_input_background"
-        android:drawablePadding="12dp"
-        android:hint="Nyt password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/HintGray" />
-
-    <EditText
-        android:id="@+id/passwordChangeConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/passwordChange"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/custom_input_background"
-        android:drawablePadding="12dp"
-        android:hint="Gentag password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/HintGray" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/changePasswordbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Skift password"
-        android:layout_below="@id/passwordChangeConfirm"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/buttonsfullwidth"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/historik"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Min Historik"
-        android:layout_below="@id/changePasswordbtn"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -87,23 +41,76 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="380dp"
             android:layout_marginTop="16dp"
             android:layout_below="@id/backButton"  />
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Skift dit password"
+            android:layout_below="@id/backButton"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
 
+            android:id="@+id/label_passwordchange"/>
+
+        <EditText
+            android:id="@+id/passwordChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_passwordchange"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_input_background"
+            android:drawablePadding="12dp"
+            android:hint="Nyt password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
+
+        <EditText
+            android:id="@+id/passwordChangeConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordChange"
+            android:layout_marginBottom="10dp"
+
+            android:background="@drawable/custom_input_background"
+            android:drawablePadding="12dp"
+            android:hint="Gentag password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/HintGray" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/changePasswordbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skift password"
+            android:layout_below="@id/passwordChangeConfirm"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/buttonsfullwidth"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
 
 
 
     </LinearLayout>
+    </ScrollView>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Slet bruger"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/buttonsfullwidth"
+        android:background="@color/orange"
         android:textColor="#FFFFFF"
         android:layout_alignParentEnd="true"
         android:textSize="18sp"/>

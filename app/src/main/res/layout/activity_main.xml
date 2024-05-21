@@ -8,53 +8,57 @@
 
     tools:context=".MainActivity">
 
-
-    <!-- TextView -->
-    <TextView
-        android:id="@+id/velkomstText"
+    <LinearLayout
+        android:id="@+id/layoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Velkommen til AAU Martketplace"
-        android:textAlignment="center"
-        android:textColor="@color/orange"
-        android:textSize="21sp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
+        <!-- TextView -->
+        <TextView
+            android:id="@+id/velkomstText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Velkommen til AAU Martketplace"
+            android:textAlignment="center"
+            android:textColor="@color/orange"
+            android:textSize="23sp" />
 
-    <TextView
-        android:id="@+id/underVelkomst"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/velkomstText"
-        android:layout_marginBottom="20dp"
-        android:text="- Køb og salg af studiebøger"
-        android:textAlignment="center"
-        android:textColor="@color/blue"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/underVelkomst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <!-- Search Bar -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/underVelkomst"
-        android:theme="@style/SearchView"
-        app:queryHint="Søg efter titel"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/textfields"/>
+            android:layout_marginBottom="20dp"
+            android:text="- Køb og salg af studiebøger"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="18sp" />
+
+        <!-- Search Bar -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfields"
+            android:padding="5dp"
+            android:theme="@style/SearchView"
+            app:queryHint="Søg efter titel" />
 
 
+    </LinearLayout>
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/navigation_buttons"
-        android:layout_below="@+id/searchBar"
+        android:layout_above="@+id/navigation_buttons"
+        android:layout_below="@+id/layoutTop"
         android:clickable="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/book_item" />
-
-
     <!-- Navigation Buttons -->
     <LinearLayout
         android:id="@+id/navigation_buttons"

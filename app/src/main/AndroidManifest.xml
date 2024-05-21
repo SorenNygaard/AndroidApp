@@ -36,7 +36,7 @@
             android:name=".SigninActivity"
             android:exported="true"/> <!-- Set exported as needed -->
 
-        <!-- UserActivity for logged-in users -->
+        <!-- MainActivity for logged-in users -->
 
         <activity
             android:name=".MainActivity"
@@ -44,10 +44,12 @@
 
         <activity
             android:name=".UserSettingsActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
         </activity>
         <activity
             android:name=".buyAndSellActivity"
+
             android:exported="true">
         </activity>
 

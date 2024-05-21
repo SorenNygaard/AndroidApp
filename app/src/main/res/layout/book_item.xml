@@ -25,8 +25,7 @@
                 android:layout_marginRight="16dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-
-                android:src="@drawable/my_image_background" />
+                android:src="@mipmap/ic_launcher_round" />
             <!-- Labels for each book information -->
             <TextView
                 android:id="@+id/label_title"
@@ -50,34 +49,13 @@
                 android:textStyle="bold"
                 />
 
-            <TextView
-                android:id="@+id/label_uddannelse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageBook"
-                android:layout_below="@id/label_forfatter"
-                android:text="Uddannelse: "
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/label_semester"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageBook"
-                android:layout_below="@id/label_uddannelse"
-                android:text="Semester: "
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/label_stand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/imageBook"
-                android:layout_below="@id/label_semester"
+                android:layout_below="@id/label_forfatter"
                 android:text="Stand: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -90,7 +68,7 @@
                 android:layout_toEndOf="@id/imageBook"
                 android:layout_below="@id/label_stand"
                 android:text="Pris: "
-                android:textColor="@color/black"
+                android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <!-- Actual book information -->
@@ -115,33 +93,13 @@
                 android:maxLines="1"
                 android:ellipsize="end"/>
 
-            <TextView
-                android:id="@+id/itemuddannelse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/label_forfatter"
-                android:layout_toEndOf="@id/label_uddannelse"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:maxLines="1"
-                android:ellipsize="end"/>
 
-            <TextView
-                android:id="@+id/itemsemester"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/label_uddannelse"
-                android:layout_toEndOf="@id/label_semester"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:maxLines="1"
-                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/itemstand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/label_semester"
+                android:layout_below="@id/label_forfatter"
                 android:layout_toEndOf="@id/label_stand"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -154,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label_stand"
                 android:layout_toEndOf="@id/label_pris"
-                android:textColor="@color/black"
+                android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:maxLines="1"
                 android:ellipsize="end"/>

@@ -48,10 +48,13 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize Firebase database reference
+        // Initialize DatabaseManager
+        DatabaseManager.initialize();
+
+        // Initialize database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("books");
 
-        // Set up the SearchView
+        // Set up SearchView
         searchbar = findViewById(R.id.searchBar);
 
         searchbar.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
                 searchbar.setIconified(false);
             }
         });
-
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -74,8 +76,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
                 return false;
             }
         });
-
-        // Set up the RecyclerView
+        // Set up RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         // Set item click listener after initializing adapter
         adapter.setOnItemClickListener(this);
 
-        // Set up buttons and their click listeners
+        // Set up buttons
         Button buttonLogout = findViewById(R.id.logud);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,9 +119,10 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
             }
         });
 
-        // Load book items from the database
+        // Load book items
         loadBookItems();
     }
+          
 
     /**
      * Handles item clicks in the RecyclerView.

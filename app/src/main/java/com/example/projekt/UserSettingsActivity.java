@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
 /**
  * UserSettingsActivity handles user settings such as changing password and deleting account.
  */
@@ -76,7 +75,6 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Changes the user's password.
      *
@@ -96,12 +94,11 @@ public class UserSettingsActivity extends AppCompatActivity {
             Toast.makeText(UserSettingsActivity.this, "No user signed in", Toast.LENGTH_SHORT).show();
         }
     }
-
     /**
      * Shows a dialog to re-authenticate the user before changing the password.
      *
-     * @param user        The current user.
-     * @param newPassword The new password.
+     * @param user         The current user.
+     * @param newPassword  The new password.
      */
     private void showReauthenticationPrompt(FirebaseUser user, String newPassword) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -127,12 +124,11 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         builder.show();
     }
-
     /**
      * Re-authenticates the user and updates the password.
      *
-     * @param user        The current user.
-     * @param password    The current password.
+     * @param user       The current user.
+     * @param password   The current password.
      * @param newPassword The new password.
      */
     private void reauthenticateUser(FirebaseUser user, String password, String newPassword) {
@@ -150,11 +146,10 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Updates the user's password.
      *
-     * @param user        The current user.
+     * @param user       The current user.
      * @param newPassword The new password.
      */
     private void updatePassword(FirebaseUser user, String newPassword) {
@@ -171,7 +166,6 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Shows a dialog to confirm account deletion.
      */
@@ -193,7 +187,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
-
     /**
      * Shows a dialog to enter the password for account deletion.
      */
@@ -220,16 +213,13 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         builder.show();
     }
-
     /**
      * Deletes the user account after re-authentication.
      *
      * @param password The user's password for re-authentication.
      */
     private void deleteAccount(String password) {
-        // Get user's credentials for re-authentication
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
-        // Re-authenticate user
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -256,7 +246,6 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Loads the user's books from the database.
      * If no user is signed in, displays a message.
@@ -304,7 +293,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         AdapterRecycleView adapter = new AdapterRecycleView(this, userBooks);
         recyclerView.setAdapter(adapter);
     }
-
     /**
      * Resumes the activity.
      * Loads user's books when the activity resumes.
@@ -315,7 +303,6 @@ public class UserSettingsActivity extends AppCompatActivity {
         // Load user's books when the activity resumes
         loadUserBooks();
     }
-
     /**
      * Navigates to the sign-in activity after successful account deletion.
      * Clears the back stack to prevent going back to this activity on back press.

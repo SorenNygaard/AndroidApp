@@ -1,39 +1,57 @@
 package com.example.projekt;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-import android.widget.Toast;
-import androidx.appcompat.widget.SearchView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
+/**
+ * The MainActivity class is the main entry point for the application.
+ * It handles the user interface for searching and displaying a list of books,
+ * and provides navigation to other activities such as login, selling books, and user settings.
+ */
 public class MainActivity extends AppCompatActivity implements AdapterRecycleView.OnItemClickListener {
 
+    // UI components
     SearchView searchbar;
     RecyclerView recyclerView;
     ArrayList<ModelRecyclerView> bookArrayList;
     AdapterRecycleView adapter;
+    DatabaseReference databaseReference;
 
+    /**
+     * Called when the activity is first created.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then
+     *                          this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)(dette betyder at den gemmer
+     *                          en instance så hvis appen f.eks. crasher kan den loade denne og bruge den til at genoprette den tilstand der var før lukning/crash ).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize DatabaseManager
-        DatabaseManager.initialize();
+        // Initialize Firebase database reference
+        databaseReference = FirebaseDatabase.getInstance().getReference("books");
 
-        // Set up SearchView
+        // Set up the SearchView
         searchbar = findViewById(R.id.searchBar);
 
         searchbar.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
                 searchbar.setIconified(false);
             }
         });
+
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -56,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
             }
         });
 
-        // Set up RecyclerView
+        // Set up the RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         // Set item click listener after initializing adapter
         adapter.setOnItemClickListener(this);
 
-        // Set up buttons
+        // Set up buttons and their click listeners
         Button buttonLogout = findViewById(R.id.logud);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
                 finish();
             }
         });
-
+        //Tilføj bog knap
         Button addbookbtn = findViewById(R.id.menu2);
         addbookbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
                 finish();
             }
         });
-
+        //Bruger indstillinger
         Button buttonuser = findViewById(R.id.menu3);
         buttonuser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +118,14 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
             }
         });
 
-        // Load book items
+        // Load book items from the database
         loadBookItems();
     }
 
+    /**
+     * Handles item clicks in the RecyclerView.
+     * @param position The position of the clicked item.
+     */
     @Override
     public void onItemClick(int position) {
         // Handle item click here
@@ -122,9 +145,12 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
 
         startActivity(intent);
     }
+
+    /**
+     * Loads book items from the Firebase database.
+     */
     private void loadBookItems() {
-        // Read data from the "books" node using DatabaseManager
-        DatabaseManager.readData("books", new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 bookArrayList.clear();
@@ -144,19 +170,34 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         });
     }
 
+    /**
+     * Searches for books in the Firebase database based on the given query.
+     * @param query The search query.
+     */
     private void searchBooks(String query) {
-        // Search books using DatabaseManager
-        DatabaseManager.searchBooks("books", query, new ValueEventListener() {
+        Log.d("MainActivity", "Searching for books with query: " + query); // Log the search query
+
+        Query searchQuery = databaseReference.orderByChild("titel")
+                .startAt(query.toUpperCase())
+                .endAt(query.toLowerCase() + "\uf8ff");
+
+        searchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                bookArrayList.clear();
+                Log.d("MainActivity", "Received search results"); // Log when search results are received
+                bookArrayList.clear(); // Clear the existing dataset
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelRecyclerView model = ds.getValue(ModelRecyclerView.class);
                     if (model != null) {
-                        bookArrayList.add(model);
+                        // Check if the query matches the beginning of the title, regardless of case
+                        if (model.getTitel().toUpperCase().startsWith(query.toUpperCase())) {
+                            bookArrayList.add(model); // Add the model to the dataset if it matches
+                        }
                     }
                 }
-                adapter.notifyDataSetChanged();
+
+                adapter.notifyDataSetChanged(); // Notify the RecyclerView adapter of dataset changes
             }
 
             @Override
@@ -165,5 +206,4 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
             }
         });
     }
-
 }

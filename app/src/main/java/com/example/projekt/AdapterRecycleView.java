@@ -11,64 +11,107 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
+/**
+ * Adapter for the RecyclerView that displays book items.
+ * It binds data to the views and handles item click events.
+ */
 public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.HolderBook> {
     private final Context context;
     private final ArrayList<ModelRecyclerView> bookArrayList;
     private OnItemClickListener mListener;
 
-    // Interface for click listener
+    /**
+     * Interface for item click listener.
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
+    /**
+     * Sets the item click listener.
+     * @param listener The listener to set.
+     */
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
+    /**
+     * Constructor for the adapter.
+     * @param context The context in which the adapter is used.
+     * @param bookArrayList The list of books to display.
+     */
     public AdapterRecycleView(Context context, ArrayList<ModelRecyclerView> bookArrayList) {
         this.context = context;
         this.bookArrayList = bookArrayList;
     }
+
+    /**
+     * Called when the RecyclerView needs a new ViewHolder.
+     * @param parent The ViewGroup into which the new view will be added.
+     * @param viewType The view type of the new view.
+     * @return A new HolderBook.
+     */
     @NonNull
     @Override
     public HolderBook onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the book_item layout and create a new HolderBook
         View view = LayoutInflater.from(context).inflate(R.layout.book_item, parent, false);
         return new HolderBook(view);
     }
 
+    /**
+     * Called to display the data at the specified position.
+     * @param holder The ViewHolder to bind data to.
+     * @param position The position of the item in the dataset.
+     */
     @Override
     public void onBindViewHolder(@NonNull HolderBook holder, int position) {
+        // Get the current book model
         ModelRecyclerView model = bookArrayList.get(position);
-        holder.bindData(model);
-        Picasso.get().load(model.getImageUrl()).into(holder.imageBook);
 
+        // Bind the data to the ViewHolder
+        holder.bindData(model);
+
+        // Load the book image using Picasso
+        Picasso.get().load(model.getImageUrl()).into(holder.imageBook);
     }
 
+    /**
+     * Returns the total number of items in the dataset.
+     * @return The size of the bookArrayList.
+     */
     @Override
     public int getItemCount() {
         return bookArrayList.size();
     }
 
+    /**
+     * ViewHolder for the RecyclerView that represents a single book item.
+     */
     class HolderBook extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView authorTextView;
-        TextView uddannelseTextView;
         TextView standTextView;
-        TextView semesterTextView;
         TextView prisTextView;
         ImageView imageBook;
 
+        /**
+         * Constructor for the HolderBook.
+         * @param itemView The view of the item.
+         */
         public HolderBook(@NonNull View itemView) {
             super(itemView);
+
+            // Initialize the views
             titleTextView = itemView.findViewById(R.id.itemtitle);
             authorTextView = itemView.findViewById(R.id.itemforfatter);
-            // uddannelseTextView = itemView.findViewById(R.id.itemuddannelse); fjern kommentar hvis de ønskes på forsiden også i bindData
+            // uddannelseTextView = itemView.findViewById(R.id.itemuddannelse); // Uncomment if needed
             standTextView = itemView.findViewById(R.id.itemstand);
-           // semesterTextView = itemView.findViewById(R.id.itemsemester);
+            // semesterTextView = itemView.findViewById(R.id.itemsemester); // Uncomment if needed
             prisTextView = itemView.findViewById(R.id.itempris);
             imageBook = itemView.findViewById(R.id.imageBook);
 
-            // Set click listener
+            // Set click listener for the item view
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,13 +125,18 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
             });
         }
 
+        /**
+         * Binds data to the views.
+         * @param model The book model to bind.
+         */
         public void bindData(ModelRecyclerView model) {
+            // Set the text for each view based on the book model
             titleTextView.setText(model.getTitel());
             authorTextView.setText(model.getForfatter());
-           // uddannelseTextView.setText(model.getUddannelse());
+            // uddannelseTextView.setText(model.getUddannelse()); // Uncomment if needed
             standTextView.setText(model.getStand());
-           // semesterTextView.setText(model.getSemester());
-            prisTextView.setText(String.valueOf(model.getPris()+"kr"));
+            // semesterTextView.setText(model.getSemester()); // Uncomment if needed
+            prisTextView.setText(model.getPris() + "kr");
         }
     }
 }

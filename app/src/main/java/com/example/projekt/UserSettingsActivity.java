@@ -27,6 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * UserSettingsActivity handles user settings such as changing password and deleting account.
+ */
 public class UserSettingsActivity extends AppCompatActivity {
 
     ImageButton backButton;
@@ -74,6 +77,12 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Changes the user's password.
+     *
+     * @param newPassword     The new password.
+     * @param confirmPassword The confirmation of the new password.
+     */
     private void changePassword(String newPassword, String confirmPassword) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -88,6 +97,12 @@ public class UserSettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows a dialog to re-authenticate the user before changing the password.
+     *
+     * @param user        The current user.
+     * @param newPassword The new password.
+     */
     private void showReauthenticationPrompt(FirebaseUser user, String newPassword) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Reauthentication");
@@ -113,6 +128,13 @@ public class UserSettingsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Re-authenticates the user and updates the password.
+     *
+     * @param user        The current user.
+     * @param password    The current password.
+     * @param newPassword The new password.
+     */
     private void reauthenticateUser(FirebaseUser user, String password, String newPassword) {
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -129,6 +151,12 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the user's password.
+     *
+     * @param user        The current user.
+     * @param newPassword The new password.
+     */
     private void updatePassword(FirebaseUser user, String newPassword) {
         user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -144,6 +172,9 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Shows a dialog to confirm account deletion.
+     */
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete your account?");
@@ -163,6 +194,9 @@ public class UserSettingsActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Shows a dialog to enter the password for account deletion.
+     */
     private void showPasswordPrompt() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Password");
@@ -187,8 +221,15 @@ public class UserSettingsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Deletes the user account after re-authentication.
+     *
+     * @param password The user's password for re-authentication.
+     */
     private void deleteAccount(String password) {
+        // Get user's credentials for re-authentication
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
+        // Re-authenticate user
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -216,6 +257,10 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Loads the user's books from the database.
+     * If no user is signed in, displays a message.
+     */
     private void loadUserBooks() {
         String currentUserId = DatabaseManager.getCurrentUserId();
         if (currentUserId != null) {
@@ -245,6 +290,11 @@ public class UserSettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Displays the user's books in the RecyclerView.
+     *
+     * @param userBooks The list of user's books to display.
+     */
     private void displayUserBooks(ArrayList<ModelRecyclerView> userBooks) {
         // Update UI with user's books
         // For example, you can create a RecyclerView to display the books
@@ -255,6 +305,10 @@ public class UserSettingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Resumes the activity.
+     * Loads user's books when the activity resumes.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -262,6 +316,10 @@ public class UserSettingsActivity extends AppCompatActivity {
         loadUserBooks();
     }
 
+    /**
+     * Navigates to the sign-in activity after successful account deletion.
+     * Clears the back stack to prevent going back to this activity on back press.
+     */
     private void navigateToSignInActivity() {
         Intent intent = new Intent(UserSettingsActivity.this, SigninActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
@@ -269,4 +327,3 @@ public class UserSettingsActivity extends AppCompatActivity {
         finish(); // Finish the current activity to prevent going back to it on back press
     }
 }
-

@@ -5,20 +5,25 @@ import android.os.Bundle;
 import com.squareup.picasso.Picasso;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
 
 public class buyAndSellActivity extends AppCompatActivity {
     ImageButton backButton;
+    Button contactbutton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_buyer);
         backButton = findViewById(R.id.backButton);
+        contactbutton = findViewById(R.id.contact_seller_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,6 +31,14 @@ public class buyAndSellActivity extends AppCompatActivity {
                 finish();
             }
         });
+        contactbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(buyAndSellActivity.this,"Information om sælger her", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         // Retrieve the information from the intent
         String bookTitle = getIntent().getStringExtra("book_title");
         String bookAuthor = getIntent().getStringExtra("book_author");

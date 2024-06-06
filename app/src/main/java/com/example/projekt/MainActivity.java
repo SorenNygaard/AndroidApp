@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecycleVie
         // Load book items
         loadBookItems();
     }
-          
+
 
     /**
      * Handles item clicks in the RecyclerView.
